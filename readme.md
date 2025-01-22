@@ -8,6 +8,18 @@ This project is my first legit adventure into machine learning and computer visi
 
 Here is the journey.
 
+<!-- <img src="input.png" width="400" height="400" style="image-rendering: pixelated; image-rendering: crisp-edges; -ms-interpolation-mode: nearest-neighbor;"> -->
+
+## Section 0: improving rendering of this readme
+
+Run the following code in your browser console on this page to improve the rendering of a few images.
+
+```js
+const ffl0f = document.querySelector("#user-content-ffl0f");
+ffl0f.style.maxWidth = "200px";
+ffl0f.style.imageRendering = "pixelated";
+```
+
 ## Getting Started: Aquiring and ingesting the Data
 
 I downloaded the MNIST dataset from Kaggle and extracted the images and labels. This left me with 4 files:
@@ -91,7 +103,7 @@ Starting with the original orientation, when we restrict the floodfill from trav
 </td>
 <td>
 
-<img id="ffl0f" src="./doc/floodfill-limited-0-frame.png" height='300' style="image-rendering: pixelated; image-rendering: crisp-edges; -ms-interpolation-mode: nearest-neighbor;"/>
+<img id="ffl0f" src="./doc/floodfill-limited-0-frame.png" height='200' width='200' style="image-rendering: pixelated; image-rendering: crisp-edges; -ms-interpolation-mode: nearest-neighbor;"/>
 
 </td>
 </tr>
