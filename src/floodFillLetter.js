@@ -72,6 +72,13 @@ export const floodFillLetter = (imageData) => {
     getEmptyArray()
   );
 
+  const numFilledPixels = flooded.reduce(
+    (acc, arr) => acc + arr.filter((x) => x).length,
+    0
+  );
+
+  console.log(numFilledPixels);
+
   generateLetterImage(
     { [character]: simplifiedCharacterData },
     {

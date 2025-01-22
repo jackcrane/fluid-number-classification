@@ -7,6 +7,15 @@ rmSync("./images", { recursive: true });
 mkdirSync("./images");
 
 const mnist = load();
-console.log(mnist);
+// console.log(mnist);
 
-floodFillLetter(mnist[428]);
+// for (let i = 0; i < 670; i++) {
+//   const imageData = mnist[i];
+//   generateLetterImage(imageData, {
+//     writeImage: true,
+//     idx: String(i).padStart(4, "0"),
+//     // preReshapen: true,
+//   });
+// }
+
+floodFillLetter(mnist[4]);

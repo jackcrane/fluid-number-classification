@@ -43,3 +43,42 @@ Then I created the [`src/load.js`](./src/load.js) file to convert the files from
 ```
 
 Each pixel value falls between [0, 255]. This left me with a very long 1x784 array. I reshaped this array into a 28x28 array of pixels in the [`src/reshapeArray.js`](./src/reshapeArray.js) file.
+
+At this point, I was able to load the data and parse it into images.
+
+<!-- 67x10 grid of images -->
+
+![mnist number grid](./doc/mnist-numbers.png)
+
+## Flood Filling
+
+The next step was to implement a flood fill algorithm. Originally I wrote a depth-first ff algorithm, but switched to breadth-first because it would generate a better looking result animation. This [algorithm](./src/floodFillLetter.js) is nothing novel so it is linked and won't be further covered.
+
+
+
+<table>
+<tr>
+<td>
+<img src="./doc/ff-result.png" width="300">
+</td>
+<td>
+<video controls autoplay loop>
+  <source src="./doc/floodfill.mp4" type="video/mp4">
+</video>
+</td>
+</tr>
+</table>
+
+Next, we need to find out how many pixels are filled in as "liquid". This will be one of the inputs to our final vector. This image (number `4` in the mnist dataset) has 670 pixels filled in this test. Our final vector is now:
+
+$$
+
+\langle
+670, \color{grey}?,?,?,?,?\color{white}
+\rangle
+
+$$
+
+## Limited Flood Fill
+
+We will now use a limited flood fill algorithm to simulate pouring liquid into the image from the top. Basically we will restrict the fluid from traveling upwards, then we will run the same flood fill algorithm as before. Then, we will rotate the image 90 degrees and repeat the process. Rotate it again, and repeat. We will capture the result of the 4 orientations, and serve them as inputs to our final vector.
