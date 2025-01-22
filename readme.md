@@ -328,14 +328,14 @@ For the sake of time efficiency, I am using 200 samples from the MNIST test data
 | 2 | 83% | |
 | 3 | 83.5% | |
 | 4 | 83.17% | |
-| 5 | 85.00% | |
+| 5 | 85.00% | The best! |
 | 6 | 84.25% | |
 | 7 | 84.00% | |
 | 8 | 83.75% | |
 | 9 | 83.90% | |
 | 10 | 84.00% | |
 
-So looks like the most accurate solution is with 5 nearest vectors so I am going to use that for now.
+So looks like the most accurate solution is with 5 nearest vectors so I am going to use that for now. Running it against the entire 10,000 test images, we got an 81.28% pass rate with 8128 successes and 1872 failures.
 
 ## Moving forward
 

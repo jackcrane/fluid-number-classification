@@ -20,3 +20,11 @@ export const reshapeArray = (array) => {
 
   return newArray;
 };
+
+export const unReshapeArray = (array) => {
+  const newArray = [];
+  for (let i = 0; i < array.length; i++) {
+    newArray.push(...array[i]);
+  }
+  return newArray;
+};
