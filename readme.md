@@ -158,14 +158,7 @@ $$
 <td>
 90 degrees
 
-$$
-\langle
-\color{orange}316
-\color{white},
-\color{orange}354
-\color{white}
-\rangle
-$$
+316, 354
 
 </td>
 <td>
@@ -183,14 +176,7 @@ $$
 <td>
 180 degrees
 
-$$
-\langle
-\color{teal}334
-\color{white},
-\color{teal}324
-\color{white}
-\rangle
-$$
+334, 324
 
 </td>
 <td>
@@ -208,14 +194,7 @@ $$
 <td>
 270 degrees
 
-$$
-\langle
-\color{red}354
-\color{white},
-\color{red}298
-\color{white}
-\rangle
-$$
+354, 298
 
 </td>
 <td>
