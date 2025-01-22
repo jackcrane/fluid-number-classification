@@ -3,7 +3,13 @@ import { reshapeArray } from "./reshapeArray.js";
 import { generateId } from "./generateId.js";
 import { logTimings } from "./logTimings.js";
 
-const internalFloodFill = (imageData, startX, startY, forceFillPixels) => {
+const internalFloodFill = (
+  imageData,
+  startX,
+  startY,
+  forceFillPixels,
+  limited = false
+) => {
   const startTime = performance.now();
   const queue = [[startX, startY]];
   const rows = imageData.length;
@@ -33,7 +39,7 @@ const internalFloodFill = (imageData, startX, startY, forceFillPixels) => {
     // Push neighbors to the queue (4-directional flood fill)
     queue.push([x - 1, y]); // left
     queue.push([x + 1, y]); // right
-    queue.push([x, y - 1]); // up
+    !limited && queue.push([x, y - 1]); // up
     queue.push([x, y + 1]); // down
 
     const endTime = performance.now();
@@ -53,7 +59,7 @@ const internalFloodFill = (imageData, startX, startY, forceFillPixels) => {
   return forceFillPixels;
 };
 
-export const floodFillLetter = (imageData) => {
+export const floodFillLetter = (imageData, limited = false) => {
   const character = Object.keys(imageData)[0];
   const characterData = imageData[character];
 
@@ -69,7 +75,8 @@ export const floodFillLetter = (imageData) => {
     simplifiedImageReshaped,
     x,
     0,
-    getEmptyArray()
+    getEmptyArray(),
+    limited
   );
 
   const numFilledPixels = flooded.reduce(
@@ -77,7 +84,21 @@ export const floodFillLetter = (imageData) => {
     0
   );
 
-  console.log(numFilledPixels);
+  const numFilledPixelsFirstHalf = flooded.reduce(
+    (acc, arr) =>
+      acc + arr.slice(0, Math.floor(arr.length / 2)).filter((x) => x).length,
+    0
+  );
+
+  const numFilledPixelsSecondHalf = flooded.reduce(
+    (acc, arr) =>
+      acc + arr.slice(Math.floor(arr.length / 2)).filter((x) => x).length,
+    0
+  );
+
+  console.log(
+    `Filled a total of ${numFilledPixels} pixels (${numFilledPixelsFirstHalf} + ${numFilledPixelsSecondHalf})`
+  );
 
   generateLetterImage(
     { [character]: simplifiedCharacterData },

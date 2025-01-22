@@ -66,4 +66,45 @@ $$
 
 ## Limited Flood Fill
 
-We will now use a limited flood fill algorithm to simulate pouring liquid into the image from the top. Basically we will restrict the fluid from traveling upwards, then we will run the same flood fill algorithm as before. Then, we will rotate the image 90 degrees and repeat the process. Rotate it again, and repeat. We will capture the result of the 4 orientations, and serve them as inputs to our final vector.
+We will now use a limited flood fill algorithm to simulate pouring liquid into the image from the top. Basically we will restrict the fluid from traveling upwards, then we will run the same flood fill algorithm as before. Then, we will rotate the image 90 degrees and repeat the process. Rotate it again, and repeat. We will capture the result of the 4 orientations, and serve them as inputs to our final vector. Additionally, to account for the fact that some numbers will have an unbalanced distribution of filled pixels (think a 6 rotated 90 degrees counter clockwise will catch a lot of liquid in the curved bit) we are splitting the number of filled pixels down the middle:
+
+```js
+const numFilledPixelsFirstHalf = flooded.reduce(
+  (acc, arr) => acc + arr.slice(0, Math.floor(arr.length / 2)).filter((x) => x).length,
+  0
+);
+
+const numFilledPixelsSecondHalf = flooded.reduce(
+  (acc, arr) => acc + arr.slice(Math.floor(arr.length / 2)).filter((x) => x).length,
+  0
+);
+```
+
+Starting with the original orientation, when we restrict the floodfill from traversing upward, we get only 2 pixels that don't get filled in:
+
+<table>
+<tr>
+<td>
+
+![ff-result-1](./doc/floodfill-limited-0.png)
+
+</td>
+<td>
+
+<img src="./doc/floodfill-limited-0-frame.png" height='300' style="image-rendering: pixelated; image-rendering: crisp-edges; -ms-interpolation-mode: nearest-neighbor;"/>
+
+</td>
+</tr>
+</table>
+
+so the total is 668 (326 + 342), so we will add to our vector:
+
+$$
+\langle
+\color{forestgreen}670
+\color{white},
+\color{yellow}336, 342
+\color{white},
+\color{grey}?,?,?,?\color{white}
+\rangle
+$$
