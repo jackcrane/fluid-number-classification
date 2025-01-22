@@ -318,6 +318,25 @@ It finds the nearest vector and the distance to it, ultimately providing the sol
 
 By running it against the test data, we get an accurate solution rate of 78.81% ([7881 passes and 2119 failures](./benchmark.txt)), which for my first attempt, ill take it.
 
+## Migration to KNN
+
+For the sake of time efficiency, I am using 200 samples from the MNIST test dataset rather than all 10,000 for testing. Given these first 200 samples, I am getting an 81% pass rate with 162 successes and 38 failures. Migrating to the KNN algorithm is the next step and I need to decide how many nearest vectors to use.
+
+| Number of nearest vectors | Pass rate | Comment |
+| ------------------------- | --------- | ------- |
+| 1 | 81% | This is the same as the current implementation, finding the single nearest vector |
+| 2 | 83% | |
+| 3 | 83.5% | |
+| 4 | 83.17% | |
+| 5 | 85.00% | |
+| 6 | 84.25% | |
+| 7 | 84.00% | |
+| 8 | 83.75% | |
+| 9 | 83.90% | |
+| 10 | 84.00% | |
+
+So looks like the most accurate solution is with 5 nearest vectors so I am going to use that for now.
+
 ## Moving forward
 
 Now that I have a working solution, I have a few ideas for how to improve it:
