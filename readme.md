@@ -15,9 +15,11 @@ Here is the journey.
 Run the following code in your browser console on this page to improve the rendering of a few images.
 
 ```js
-const ffl0f = document.querySelector("#user-content-ffl0f");
-ffl0f.style.maxWidth = "200px";
-ffl0f.style.imageRendering = "pixelated";
+['ffl0f', 'ffl90f', 'ffl180f', 'ffl270f'].map(id => {
+  const img = document.querySelector(`#user-content-${id}`);
+  img.style.maxWidth = "200px";
+  img.style.imageRendering = "pixelated";
+}
 ```
 
 ## Getting Started: Aquiring and ingesting the Data
@@ -72,7 +74,24 @@ Next, we need to find out how many pixels are filled in as "liquid". This will b
 
 $$
 \langle
-670, \color{grey}?,?,?,?,?\color{white}
+\color{forestgreen}670
+\color{white},
+\color{yellow}?
+\color{white},
+\color{yellow}?
+\color{white},
+\color{orange}?
+\color{white},
+\color{orange}?
+\color{white},
+\color{teal}?
+\color{white},
+\color{teal}?
+\color{white},
+\color{red}?
+\color{white},
+\color{red}?
+\color{white}
 \rangle
 $$
 
@@ -115,9 +134,22 @@ $$
 \langle
 \color{forestgreen}670
 \color{white},
-\color{yellow}336, 342
+\color{yellow}336
 \color{white},
-\color{grey}?,?,?,?\color{white}
+\color{yellow}342
+\color{white},
+\color{orange}?
+\color{white},
+\color{orange}?
+\color{white},
+\color{teal}?
+\color{white},
+\color{teal}?
+\color{white},
+\color{red}?
+\color{white},
+\color{red}?
+\color{white}
 \rangle
 $$
 
@@ -125,6 +157,16 @@ $$
 <tr>
 <td>
 90 degrees
+
+$$
+\langle
+\color{orange}316
+\color{white},
+\color{orange}354
+\color{white}
+\rangle
+$$
+
 </td>
 <td>
 
@@ -133,13 +175,23 @@ $$
 </td>
 <td>
 
-<img id="ffl0f" src="./doc/floodfill-limited-90-frame.png" height='200' width='200' style="image-rendering: pixelated; image-rendering: crisp-edges; -ms-interpolation-mode: nearest-neighbor;"/>
+<img id="ffl90f" src="./doc/floodfill-limited-90-frame.png" height='200' width='200' style="image-rendering: pixelated; image-rendering: crisp-edges; -ms-interpolation-mode: nearest-neighbor;"/>
 
 </td>
 </tr>
 <tr>
 <td>
 180 degrees
+
+$$
+\langle
+\color{teal}334
+\color{white},
+\color{teal}324
+\color{white}
+\rangle
+$$
+
 </td>
 <td>
 
@@ -148,13 +200,23 @@ $$
 </td>
 <td>
 
-<img id="ffl0f" src="./doc/floodfill-limited-180-frame.png" height='200' width='200' style="image-rendering: pixelated; image-rendering: crisp-edges; -ms-interpolation-mode: nearest-neighbor;"/>
+<img id="ffl180f" src="./doc/floodfill-limited-180-frame.png" height='200' width='200' style="image-rendering: pixelated; image-rendering: crisp-edges; -ms-interpolation-mode: nearest-neighbor;"/>
 
 </td>
 </tr>
 <tr>
 <td>
 270 degrees
+
+$$
+\langle
+\color{red}354
+\color{white},
+\color{red}298
+\color{white}
+\rangle
+$$
+
 </td>
 <td>
 
@@ -163,18 +225,33 @@ $$
 </td>
 <td>
 
-<img id="ffl0f" src="./doc/floodfill-limited-270-frame.png" height='200' width='200' style="image-rendering: pixelated; image-rendering: crisp-edges; -ms-interpolation-mode: nearest-neighbor;"/>
+<img id="ffl270f" src="./doc/floodfill-limited-270-frame.png" height='200' width='200' style="image-rendering: pixelated; image-rendering: crisp-edges; -ms-interpolation-mode: nearest-neighbor;"/>
 
 </td>
 </tr>
 </table>
 
+Finally, this heeds our final vector for this sample:
+
 $$
 \langle
 \color{forestgreen}670
 \color{white},
-\color{yellow}336, 342
+\color{yellow}336
 \color{white},
-\color{grey}316,354,334,324,354,298\color{white}
+\color{yellow}342
+\color{white},
+\color{orange}316
+\color{white},
+\color{orange}354
+\color{white},
+\color{teal}334
+\color{white},
+\color{teal}324
+\color{white},
+\color{red}354
+\color{white},
+\color{red}298
+\color{white}
 \rangle
 $$
