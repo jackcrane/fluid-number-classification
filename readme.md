@@ -360,6 +360,8 @@ I tried to implement a falloff function to the flood fill, hopefully giving me a
 
 https://github.com/user-attachments/assets/d2d90676-6762-4668-acc4-94ef7bb23b6a
 
+Im not willing to say this actually helped or hurt the accuracy. It seems that the accuracy actually took a hit, but by 3% or so, so I am dumping my work into a branch that i don't intend to mess with in the future.
+
 ## Moving forward
 
 Now that I have a working solution, I have a few ideas for how to improve it:
