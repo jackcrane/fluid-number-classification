@@ -20,7 +20,7 @@ let fail8count = 0;
 let fail9count = 0;
 let fail0count = 0;
 
-for (let i = 0; i < 1000; i++) {
+for (let i = 0; i < mnist.length; i++) {
   const imageData = mnist[i];
   const vector = generateLetterVector(imageData);
 

@@ -19,6 +19,7 @@ const internalFloodFill = (
   let count = 0;
 
   while (queue.length) {
+    const loopStartTime = performance.now();
     count++;
     const [x, y] = queue.shift(); // Dequeue the front element
 
@@ -35,15 +36,15 @@ const internalFloodFill = (
     }
 
     // Mark the pixel as filled
-    forceFillPixels[x][y] = true;
+    forceFillPixels[x][y] = count;
 
-    // Push neighbors to the queue (4-directional flood fill)
     queue.push([x - 1, y]); // left
     queue.push([x + 1, y]); // right
     !limited && queue.push([x, y - 1]); // up
     queue.push([x, y + 1]); // down
 
     const endTime = performance.now();
+
     logTimings("floodFill", startTime, endTime);
 
     // generateLetterImage(
@@ -92,21 +93,25 @@ export const floodFillLetter = (
   );
 
   const numFilledPixels = flooded.reduce(
-    (acc, arr) => acc + arr.filter((x) => x).length,
+    (acc, arr) => acc + arr.reduce((sum, x) => (x > 0 ? sum + x : sum), 0),
     0
   );
 
-  const numFilledPixelsFirstHalf = flooded.reduce(
-    (acc, arr) =>
-      acc + arr.slice(0, Math.floor(arr.length / 2)).filter((x) => x).length,
-    0
-  );
+  const numFilledPixelsFirstHalf = flooded.reduce((acc, arr) => {
+    const half = Math.floor(arr.length / 2);
+    for (let i = 0; i < half; i++) {
+      if (arr[i] > 0) acc += arr[i];
+    }
+    return acc;
+  }, 0);
 
-  const numFilledPixelsSecondHalf = flooded.reduce(
-    (acc, arr) =>
-      acc + arr.slice(Math.floor(arr.length / 2)).filter((x) => x).length,
-    0
-  );
+  const numFilledPixelsSecondHalf = flooded.reduce((acc, arr) => {
+    const half = Math.floor(arr.length / 2);
+    for (let i = half; i < arr.length; i++) {
+      if (arr[i] > 0) acc += arr[i];
+    }
+    return acc;
+  }, 0);
 
   return [
     character,

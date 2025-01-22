@@ -5,11 +5,15 @@ import { rmSync, mkdirSync, writeFileSync } from "fs";
 rmSync("./images", { recursive: true });
 mkdirSync("./images");
 
-const mnist = load();
+const allmnist = load();
+// first 1000
+const mnist = allmnist;
+
 const vectors = new Array(mnist.length);
 const numWorkers = 4; // Adjust based on your CPU cores
 let completedTasks = 0;
 
+const startTime = performance.now();
 const processBatch = (start, end) => {
   return new Promise((resolve, reject) => {
     const worker = new Worker("./src/worker.js", {
@@ -17,21 +21,24 @@ const processBatch = (start, end) => {
     });
 
     worker.on("message", (message) => {
-      const { index, vector } = message;
-      vectors[index] = vector;
+      if (message.type === "progress") {
+        // console.log(`Worker progress: ${message.message}`);
+      } else if (message.type === "result") {
+        const { index, vector } = message;
+        vectors[index] = vector;
+      } else if (message.type === "done") {
+        console.log(message.message);
+        completedTasks++;
+        if (completedTasks === numWorkers) {
+          writeFileSync(`./vectors.json`, JSON.stringify(vectors));
+          const endTime = performance.now();
+          console.log(`All processing complete, took ${endTime - startTime}ms`);
+        }
+        resolve();
+      }
     });
 
     worker.on("error", (error) => reject(error));
-
-    worker.on("exit", () => {
-      completedTasks++;
-      console.log(`Worker processed batch ${start} - ${end}`);
-      if (completedTasks === numWorkers) {
-        writeFileSync(`./vectors.json`, JSON.stringify(vectors));
-        console.log("All processing complete");
-      }
-      resolve();
-    });
   });
 };
 

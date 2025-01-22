@@ -8,10 +8,21 @@ images.forEach((imageData, idx) => {
   const vector = generateLetterVector(imageData);
   const endTime = performance.now();
 
-  console.log(vector.character, startIndex + idx, endTime - startTime);
+  parentPort.postMessage({
+    type: "progress",
+    message: `Processed index ${startIndex + idx}, time: ${
+      endTime - startTime
+    }ms`,
+  });
 
   parentPort.postMessage({
+    type: "result",
     index: startIndex + idx,
     vector: vector,
   });
+});
+
+parentPort.postMessage({
+  type: "done",
+  message: `Worker completed batch starting from index ${startIndex}`,
 });

@@ -3,7 +3,9 @@ import { floodFillLetter } from "./floodFillLetter.js";
 export const generateLetterVector = (imageData) => {
   const vector = [];
 
-  let [, buoyancy] = floodFillLetter(imageData, false, 0);
+  const ffl = floodFillLetter(imageData, false, 0);
+
+  let [, buoyancy] = ffl;
   vector.push(buoyancy);
 
   let character;

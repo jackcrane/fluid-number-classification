@@ -15,7 +15,9 @@ export const generateLetterImage = (mnistLetter, options) => {
   const writeImage = options.writeImage || false;
   const idx = options.idx || false;
   const preReshapen = options.preReshapen || false;
-  const forceFillPixels = options.forceFillPixels || false;
+  const forceFillPixels = options.forceFillPixels || false; // [x][y]
+  const maxForceFillPixels =
+    forceFillPixels && Math.max(...forceFillPixels.flat());
 
   const imageName = Object.keys(mnistLetter)[0];
   const imageData = preReshapen
@@ -33,7 +35,10 @@ export const generateLetterImage = (mnistLetter, options) => {
   for (let x = 0; x <= 27; x++) {
     for (let y = 0; y <= 27; y++) {
       if (forceFillPixels && forceFillPixels[x]?.[y]) {
-        ctx.fillStyle = "#FF0000";
+        // ctx.fillStyle = "#FF0000";
+        ctx.fillStyle = `rgb(${
+          (forceFillPixels[x][y] / maxForceFillPixels) * 255
+        }, 0, 0)`;
       } else {
         const pixel = imageData[x][y];
         ctx.fillStyle = `rgb(${pixel}, ${pixel}, ${pixel})`;

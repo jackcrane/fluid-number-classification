@@ -29,7 +29,5 @@ const nearest = findNearestVector(vector);
 console.log(
   `The nearest matched character is ${chalk.redBright(
     nearest.nearestVector.character
-  )}, and is at a distance of ${chalk.blueBright(
-    nearest.nearestDistance.toFixed(2)
-  )} from the current vector.`
+  )}`
 );
