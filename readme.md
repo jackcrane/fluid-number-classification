@@ -19,7 +19,7 @@ Run the following code in your browser console on this page to improve the rende
   const img = document.querySelector(`#user-content-${id}`);
   img.style.maxWidth = "200px";
   img.style.imageRendering = "pixelated";
-}
+})
 ```
 
 ## Getting Started: Aquiring and ingesting the Data

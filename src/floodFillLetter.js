@@ -46,15 +46,15 @@ const internalFloodFill = (
     const endTime = performance.now();
     logTimings("floodFill", startTime, endTime);
 
-    generateLetterImage(
-      { character: imageData },
-      {
-        writeImage: true,
-        idx: String(count).padStart(4, "0"),
-        forceFillPixels: forceFillPixels,
-        preReshapen: true,
-      }
-    );
+    // generateLetterImage(
+    //   { character: imageData },
+    //   {
+    //     writeImage: true,
+    //     idx: String(count).padStart(4, "0"),
+    //     forceFillPixels: forceFillPixels,
+    //     preReshapen: true,
+    //   }
+    // );
   }
 
   return forceFillPixels;
@@ -108,9 +108,12 @@ export const floodFillLetter = (
     0
   );
 
-  console.log(
-    `Filled a total of ${numFilledPixels} pixels (${numFilledPixelsFirstHalf} + ${numFilledPixelsSecondHalf})`
-  );
+  return [
+    character,
+    numFilledPixels,
+    numFilledPixelsFirstHalf,
+    numFilledPixelsSecondHalf,
+  ];
 
   /*
   generateLetterImage(

@@ -1,15 +1,27 @@
 import { load } from "./load.js";
-import { generateLetterImage } from "./generateLetterImage.js";
-import { rmSync, mkdirSync } from "fs";
+import { rmSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { floodFillLetter } from "./floodFillLetter.js";
 import { reshapeArray } from "./reshapeArray.js";
 import { rotateArray } from "./rotateArray.js";
+import { generateLetterVector } from "./generateLetterVector.js";
 
 rmSync("./images", { recursive: true });
 mkdirSync("./images");
 
 const mnist = load();
 
-// floodFillLetter(mnist[4], true, 1);
-floodFillLetter(mnist[4], true, 3);
-// floodFillLetter(mnist[4], true, 3);
+let vectors = [];
+
+for (let i = 0; i < mnist.length; i++) {
+  const startTime = performance.now();
+  const imageData = mnist[i];
+  const vector = generateLetterVector(imageData);
+  vectors[i] = vector;
+  const endTime = performance.now();
+
+  console.log(vector.character, i, endTime - startTime);
+
+  if (i % 10 === 0) {
+    writeFileSync(`./vectors.json`, JSON.stringify(vectors));
+  }
+}
