@@ -316,7 +316,7 @@ My implementation is in [`./src/findNearestVector.js`](./src/findNearestVector.j
 
 It finds the nearest vector and the distance to it, ultimately providing the solution to our query.
 
-By running it against the test data, we get an accurate solution rate of 78.81% (7881 passes and 2119 failures), which for my first attempt, ill take it.
+By running it against the test data, we get an accurate solution rate of 78.81% ([7881 passes and 2119 failures](./benchmark.txt)), which for my first attempt, ill take it.
 
 ## Moving forward
 
