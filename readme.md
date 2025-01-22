@@ -234,3 +234,72 @@ $$
 \color{white}
 \rangle
 $$
+
+## Iterative execution
+
+Now all that was left was to drop everything in a reusable function
+
+```js
+export const generateLetterVector = (imageData) => {
+  const vector = [];
+
+  let [, buoyancy] = floodFillLetter(imageData, false, 0);
+  vector.push(buoyancy);
+
+  let character;
+
+  for (let i = 0; i < 4; i++) {
+    const letterVectorComponent = floodFillLetter(imageData, true, i);
+    vector.push(letterVectorComponent[2]);
+    vector.push(letterVectorComponent[3]);
+    character = letterVectorComponent[0];
+  }
+
+  return { character, vector };
+};
+```
+
+Then drop that into a loop:
+
+```js
+let vectors = [];
+
+for (let i = 0; i < mnist.length; i++) {
+  const startTime = performance.now();
+  const imageData = mnist[i];
+  const vector = generateLetterVector(imageData);
+  vectors[i] = vector;
+  const endTime = performance.now();
+
+  console.log(vector.character, i, endTime - startTime);
+
+  if (i % 10 === 0) {
+    writeFileSync(`./vectors.json`, JSON.stringify(vectors));
+  }
+}
+```
+
+...and discover it will take over 2 hours to execute.
+
+Not a problem! I can dispatch them in parallel and get that down to... 14 seconds including javascript spin-up time, so ill take it.
+
+Now, I have all my data in a giant JSON file
+
+```json
+[
+  { "character": "5", "vector": [673, 336, 333, 313, 294, 333, 339, 347, 290] },
+  { "character": "0", "vector": [565, 292, 273, 252, 313, 273, 292, 313, 252] },
+  { "character": "4", "vector": [703, 361, 331, 340, 361, 335, 269, 358, 338] },
+  { "character": "1", "vector": [718, 365, 353, 354, 364, 353, 365, 364, 354] },
+  { "character": "9", "vector": [670, 326, 342, 316, 354, 344, 324, 354, 298] },
+  { "character": "2", "vector": [658, 339, 298, 298, 322, 310, 348, 338, 318] },
+  { "character": "1", "vector": [717, 362, 355, 331, 386, 355, 362, 386, 331] },
+  { "character": "3", "vector": [641, 322, 319, 265, 305, 312, 322, 344, 297] },
+  { "character": "1", "vector": [739, 372, 367, 347, 392, 367, 372, 392, 347] },
+  { "character": "4", "vector": [697, 354, 336, 337, 347, 340, 326, 360, 333] },
+  { "character": "3", "vector": [675, 334, 340, 295, 343, 329, 334, 364, 307] },
+  { "character": "5", "vector": [726, 362, 364, 357, 364, 356, 362, 368, 352] },
+  { "character": "3", "vector": [640, 326, 313, 268, 269, 301, 326, 340, 290] },
+  ...60,000 more rows
+]
+```
