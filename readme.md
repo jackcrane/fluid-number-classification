@@ -358,6 +358,8 @@ The distribution of errors is interesting to me, especially the high rate for th
 
 I tried to implement a falloff function to the flood fill, hopefully giving me a way to encode not only whether a pixel is filled, but how "out of the way" it is, so I updated the floodfill algorithm to cool the pixels down as they are filled:
 
+https://github.com/user-attachments/assets/d2d90676-6762-4668-acc4-94ef7bb23b6a
+
 ## Moving forward
 
 Now that I have a working solution, I have a few ideas for how to improve it:
