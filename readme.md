@@ -120,3 +120,61 @@ $$
 \color{grey}?,?,?,?\color{white}
 \rangle
 $$
+
+<table>
+<tr>
+<td>
+90 degrees
+</td>
+<td>
+
+<img src="./doc/floodfill-limited-90.png" height='200'>
+
+</td>
+<td>
+
+<img id="ffl0f" src="./doc/floodfill-limited-90-frame.png" height='200' width='200' style="image-rendering: pixelated; image-rendering: crisp-edges; -ms-interpolation-mode: nearest-neighbor;"/>
+
+</td>
+</tr>
+<tr>
+<td>
+180 degrees
+</td>
+<td>
+
+<img src="./doc/floodfill-limited-180.png" height='200'>
+
+</td>
+<td>
+
+<img id="ffl0f" src="./doc/floodfill-limited-180-frame.png" height='200' width='200' style="image-rendering: pixelated; image-rendering: crisp-edges; -ms-interpolation-mode: nearest-neighbor;"/>
+
+</td>
+</tr>
+<tr>
+<td>
+270 degrees
+</td>
+<td>
+
+<img src="./doc/floodfill-limited-270.png" height='200'>
+
+</td>
+<td>
+
+<img id="ffl0f" src="./doc/floodfill-limited-270-frame.png" height='200' width='200' style="image-rendering: pixelated; image-rendering: crisp-edges; -ms-interpolation-mode: nearest-neighbor;"/>
+
+</td>
+</tr>
+</table>
+
+$$
+\langle
+\color{forestgreen}670
+\color{white},
+\color{yellow}336, 342
+\color{white},
+\color{grey}316,354,334,324,354,298\color{white}
+\rangle
+$$

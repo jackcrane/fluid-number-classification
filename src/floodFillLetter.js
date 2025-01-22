@@ -2,6 +2,7 @@ import { generateLetterImage, getEmptyArray } from "./generateLetterImage.js";
 import { reshapeArray } from "./reshapeArray.js";
 import { generateId } from "./generateId.js";
 import { logTimings } from "./logTimings.js";
+import { rotateArray } from "./rotateArray.js";
 
 const internalFloodFill = (
   imageData,
@@ -59,7 +60,11 @@ const internalFloodFill = (
   return forceFillPixels;
 };
 
-export const floodFillLetter = (imageData, limited = false) => {
+export const floodFillLetter = (
+  imageData,
+  limited = false,
+  rotateSteps = 0
+) => {
   const character = Object.keys(imageData)[0];
   const characterData = imageData[character];
 
@@ -69,10 +74,17 @@ export const floodFillLetter = (imageData, limited = false) => {
 
   const simplifiedImageReshaped = reshapeArray(simplifiedCharacterData);
 
+  let rotatedSimplifiedImageReshaped = simplifiedImageReshaped;
+  for (let i = 0; i < rotateSteps; i++) {
+    rotatedSimplifiedImageReshaped = rotateArray(
+      rotatedSimplifiedImageReshaped
+    );
+  }
+
   // Start the flood fill at the top center
-  const x = simplifiedImageReshaped.length / 2;
+  const x = rotatedSimplifiedImageReshaped.length / 2;
   const flooded = internalFloodFill(
-    simplifiedImageReshaped,
+    rotatedSimplifiedImageReshaped,
     x,
     0,
     getEmptyArray(),
@@ -98,15 +110,6 @@ export const floodFillLetter = (imageData, limited = false) => {
 
   console.log(
     `Filled a total of ${numFilledPixels} pixels (${numFilledPixelsFirstHalf} + ${numFilledPixelsSecondHalf})`
-  );
-
-  generateLetterImage(
-    { [character]: simplifiedCharacterData },
-    {
-      writeImage: true,
-      idx: generateId(),
-      forceFillPixels: flooded,
-    }
   );
 
   /*
