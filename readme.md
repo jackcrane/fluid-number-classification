@@ -98,7 +98,7 @@ Starting with the original orientation, when we restrict the floodfill from trav
 <tr>
 <td>
 
-![ff-result-1](./doc/floodfill-limited-0.png)
+<img src="./doc/floodfill-limited-0.png" height='200'>
 
 </td>
 <td>
