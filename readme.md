@@ -60,11 +60,9 @@ The next step was to implement a flood fill algorithm. Originally I wrote a dept
 Next, we need to find out how many pixels are filled in as "liquid". This will be one of the inputs to our final vector. This image (number `4` in the mnist dataset) has 670 pixels filled in this test. Our final vector is now:
 
 $$
-
 \langle
 670, \color{grey}?,?,?,?,?\color{white}
 \rangle
-
 $$
 
 ## Limited Flood Fill
