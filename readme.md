@@ -54,8 +54,7 @@ At this point, I was able to load the data and parse it into images.
 
 The next step was to implement a flood fill algorithm. Originally I wrote a depth-first ff algorithm, but switched to breadth-first because it would generate a better looking result animation. This [algorithm](./src/floodFillLetter.js) is nothing novel so it is linked and won't be further covered.
 
-
-![video of the flood fill algorithm](./doc/floodfill.mp4)
+https://github.com/user-attachments/assets/6880634a-8c8e-4883-816c-4d9743ee2098
 
 Next, we need to find out how many pixels are filled in as "liquid". This will be one of the inputs to our final vector. This image (number `4` in the mnist dataset) has 670 pixels filled in this test. Our final vector is now:
 
