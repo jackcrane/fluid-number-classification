@@ -8,12 +8,15 @@
     "start": "node src/app.js",
     "video": "ffmpeg -framerate 120 -pattern_type glob -i 'images/*.png' -c:v libx264 -r 60 -pix_fmt yuv420p output.mp4",
     "video:large": "ffmpeg -framerate 120 -pattern_type glob -i 'images/*.png' -vf \"scale=iw*10:ih*10:flags=neighbor\" -c:v libx264 -r 60 -pix_fmt yuv420p output.mp4",
-    "collage": "montage -tile x15 -geometry +2+2 images/*.png collage.png"
+    "collage": "montage -tile x15 -geometry +2+2 images/*.png collage.png",
+    "test": "node src/test.js",
+    "benchmark": "node src/benchmark.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "canvas": "^3.1.0"
+    "canvas": "^3.1.0",
+    "chalk": "^5.4.1"
   }
 }

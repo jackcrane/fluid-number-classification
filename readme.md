@@ -303,3 +303,27 @@ Now, I have all my data in a giant JSON file
   ...60,000 more rows
 ]
 ```
+
+## Finding the nearest vector
+
+Once we have our dictionary of vectors, we have to find the nearest vector to our current one. This is done using the euclidean distance formula (an expanded version of the pythagorean theorem):
+
+$$
+\sqrt{(x_1 - x_2)^2 + (y_1 - y_2)^2 + (z_1 - z_2)^2}
+$$
+
+My implementation is in [`./src/findNearestVector.js`](./src/findNearestVector.js). It is a simple loop that iterates over all vectors in the dictionary and calculates the distance between the current vector and each vector. It then returns the vector with the smallest distance.
+
+It finds the nearest vector and the distance to it, ultimately providing the solution to our query.
+
+By running it against the test data, we get an accurate solution rate of 78.81% (7881 passes and 2119 failures), which for my first attempt, ill take it.
+
+## Moving forward
+
+Now that I have a working solution, I have a few ideas for how to improve it:
+
+- Using a K-nearest neighbors algorithm to find several nearest vectors and then choose the most common one. I think that this could help weed out some noise and outliers from the data.
+- Using more fluid regions in the image processing. Right now it just uses the 2 halves, I think if I could split it into 4 sections, I could get better results given the trade off of my model being larger.
+- Increasing the horizontal flow "viscosity" of the fluid to prevent it from filling in areas as completely. (possibly making it only able to move horizontally at half the rate of the vertical flow)
+
+I am very happy with how it is working now, but obviously there is room for improvement.

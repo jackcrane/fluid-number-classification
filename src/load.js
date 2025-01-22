@@ -44,3 +44,15 @@ export const load = () => {
 
   return mnist;
 };
+
+export const loadTest = () => {
+  const startTime = performance.now();
+  const mnist = internalLoad(
+    `${os.homedir()}/Downloads/t10k-labels.idx1-ubyte`,
+    `${os.homedir()}/Downloads/t10k-images.idx3-ubyte`
+  );
+  const endTime = performance.now();
+  logTimings("load", startTime, endTime);
+
+  return mnist;
+};
