@@ -337,11 +337,27 @@ For the sake of time efficiency, I am using 200 samples from the MNIST test data
 
 So looks like the most accurate solution is with 5 nearest vectors so I am going to use that for now. Running it against the entire 10,000 test images, we got an 81.28% pass rate with 8128 successes and 1872 failures.
 
+Looking deeper into these failures, I ran the benchmark against 1000 images and counted how many times each character failed.
+
+| Character | Failures | Graph |
+| --------- | -------- | ----- |
+| 0 | 14 | ██████████████ |
+| 1 | 13 | █████████████ |
+| 2 | 30 | ██████████████████████████████ |
+| 3 | 39 | ███████████████████████████████████████ |
+| 4 | 13 | █████████████ |
+| 5 | 28 | ████████████████████████████ |
+| 6 | 14 | ██████████████ |
+| 7 | 21 | █████████████████████ |
+| 8 | 19 | ███████████████████ |
+| 9 | 16 | ████████████████ |
+
+The distribution of errors is interesting to me, especially the high rate for the characters `2`, `3`, and `5`. I am curious about other options on improving the accuracy of the model especially on these characters.
+
 ## Moving forward
 
 Now that I have a working solution, I have a few ideas for how to improve it:
 
-- Using a K-nearest neighbors algorithm to find several nearest vectors and then choose the most common one. I think that this could help weed out some noise and outliers from the data.
 - Using more fluid regions in the image processing. Right now it just uses the 2 halves, I think if I could split it into 4 sections, I could get better results given the trade off of my model being larger.
 - Increasing the horizontal flow "viscosity" of the fluid to prevent it from filling in areas as completely. (possibly making it only able to move horizontally at half the rate of the vertical flow)
 
