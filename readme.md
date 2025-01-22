@@ -354,6 +354,10 @@ Looking deeper into these failures, I ran the benchmark against 1000 images and 
 
 The distribution of errors is interesting to me, especially the high rate for the characters `2`, `3`, and `5`. I am curious about other options on improving the accuracy of the model especially on these characters.
 
+## Falloff
+
+I tried to implement a falloff function to the flood fill, hopefully giving me a way to encode not only whether a pixel is filled, but how "out of the way" it is, so I updated the floodfill algorithm to cool the pixels down as they are filled:
+
 ## Moving forward
 
 Now that I have a working solution, I have a few ideas for how to improve it:
