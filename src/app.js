@@ -1,27 +1,50 @@
 import { load } from "./load.js";
-import { rmSync, mkdirSync, readFileSync, writeFileSync } from "fs";
-import { floodFillLetter } from "./floodFillLetter.js";
-import { reshapeArray } from "./reshapeArray.js";
-import { rotateArray } from "./rotateArray.js";
-import { generateLetterVector } from "./generateLetterVector.js";
+import { Worker } from "worker_threads";
+import { rmSync, mkdirSync, writeFileSync } from "fs";
 
 rmSync("./images", { recursive: true });
 mkdirSync("./images");
 
 const mnist = load();
+const vectors = new Array(mnist.length);
+const numWorkers = 4; // Adjust based on your CPU cores
+let completedTasks = 0;
 
-let vectors = [];
+const processBatch = (start, end) => {
+  return new Promise((resolve, reject) => {
+    const worker = new Worker("./src/worker.js", {
+      workerData: { images: mnist.slice(start, end), startIndex: start },
+    });
 
-for (let i = 0; i < mnist.length; i++) {
-  const startTime = performance.now();
-  const imageData = mnist[i];
-  const vector = generateLetterVector(imageData);
-  vectors[i] = vector;
-  const endTime = performance.now();
+    worker.on("message", (message) => {
+      const { index, vector } = message;
+      vectors[index] = vector;
+    });
 
-  console.log(vector.character, i, endTime - startTime);
+    worker.on("error", (error) => reject(error));
 
-  if (i % 10 === 0) {
-    writeFileSync(`./vectors.json`, JSON.stringify(vectors));
-  }
+    worker.on("exit", () => {
+      completedTasks++;
+      console.log(`Worker processed batch ${start} - ${end}`);
+      if (completedTasks === numWorkers) {
+        writeFileSync(`./vectors.json`, JSON.stringify(vectors));
+        console.log("All processing complete");
+      }
+      resolve();
+    });
+  });
+};
+
+// Divide work among workers
+const batchSize = Math.ceil(mnist.length / numWorkers);
+const promises = [];
+
+for (let i = 0; i < numWorkers; i++) {
+  const start = i * batchSize;
+  const end = Math.min(start + batchSize, mnist.length);
+  promises.push(processBatch(start, end));
 }
+
+Promise.all(promises).then(() => {
+  console.log("All batches dispatched");
+});

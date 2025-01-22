@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync } from "fs";
 
 export const logTimings = (key, startTime, endTime) => {
+  return;
   let timings = JSON.parse(readFileSync("./timings.json", "utf8"));
 
   const processId = process.pid;
