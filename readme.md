@@ -91,7 +91,7 @@ Starting with the original orientation, when we restrict the floodfill from trav
 </td>
 <td>
 
-<img src="./doc/floodfill-limited-0-frame.png" height='300' style="image-rendering: pixelated; image-rendering: crisp-edges; -ms-interpolation-mode: nearest-neighbor;"/>
+<img id="ffl0f" src="./doc/floodfill-limited-0-frame.png" height='300' style="image-rendering: pixelated; image-rendering: crisp-edges; -ms-interpolation-mode: nearest-neighbor;"/>
 
 </td>
 </tr>
